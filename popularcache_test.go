@@ -5,7 +5,7 @@ import (
 
 	"github.com/stretchr/testify/require"
 
-	"popularcache"
+	"github.com/andrewwormald/popularcache"
 )
 
 // TestCache is a general acceptance test for the package

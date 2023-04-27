@@ -1,4 +1,4 @@
-module popularcache
+module github.com/andrewwormald/popularcache
 
 go 1.19
 

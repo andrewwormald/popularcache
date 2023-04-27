@@ -30,6 +30,8 @@ func (c *cache[T]) Add(id string, item T) {
 	c.shiftOrderDown(1)
 	// Add the item at the beginning
 	c.order[id] = 0
+	// Fill gaps to have incremental indexing
+	c.fillGaps()
 }
 
 func (c *cache[T]) Collect(id string) (T, bool) {
@@ -55,6 +57,25 @@ func (c *cache[T]) List() []T {
 	}
 
 	return ls
+}
+
+func (c *cache[T]) TrimRight(count int) {
+	c.mu.Lock()
+	defer c.mu.Unlock()
+
+	threshold := (len(c.items) - count) - 1
+	for id := range c.items {
+		if c.order[id] > threshold {
+			c.remove(id)
+		}
+	}
+
+	c.fillGaps()
+}
+
+func (c *cache[T]) remove(id string) {
+	delete(c.items, id)
+	delete(c.order, id)
 }
 
 // shiftOrderDown is unsafe for multithreading as it accesses memory without accessing the mutex. shiftOrderDown

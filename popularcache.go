@@ -59,7 +59,7 @@ func (c *cache[T]) List() []T {
 	return ls
 }
 
-func (c *cache[T]) TrimRight(count int) {
+func (c *cache[T]) TrimEnd(count int) {
 	c.mu.Lock()
 	defer c.mu.Unlock()
 

@@ -68,7 +68,7 @@ func TestCacheTrimLast(t *testing.T) {
 	c.Collect("2")
 
 	// Calling TrimRight removes 1 item from the very end
-	c.TrimRight(1)
+	c.TrimEnd(1)
 
 	require.Equal(t, []item{
 		{ID: "2", Value: "item 2"},
@@ -76,7 +76,7 @@ func TestCacheTrimLast(t *testing.T) {
 		{ID: "3", Value: "item 3"},
 	}, c.List())
 
-	c.TrimRight(1)
+	c.TrimEnd(1)
 
 	require.Equal(t, []item{
 		{ID: "2", Value: "item 2"},
@@ -87,7 +87,7 @@ func TestCacheTrimLast(t *testing.T) {
 	c.Add("6", item{ID: "6", Value: "item 6"})
 	c.Add("7", item{ID: "7", Value: "item 7"})
 
-	c.TrimRight(1)
+	c.TrimEnd(1)
 
 	require.Equal(t, []item{
 		{ID: "7", Value: "item 7"},
